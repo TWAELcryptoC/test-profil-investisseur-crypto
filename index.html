@@ -1,263 +1,599 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quel est votre profil d'investisseur dans les crypto-monnaies ?</title>
-    <style>
-        body { font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 20px; }
-        h1 { color: #333; }
-        .quiz-container { max-width: 700px; margin: 0 auto; padding: 20px; background: #fff; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }
-        .question { margin-bottom: 15px; }
-        .answers label { display: block; padding: 5px 0; cursor: pointer; }
-        .button { display: inline-block; padding: 10px 20px; color: #fff; background-color: #007bff; border: none; border-radius: 5px; cursor: pointer; }
-        .button:hover { background-color: #0056b3; }
-        .result { font-size: 1.2em; font-weight: bold; color: #333; margin-top: 20px; }
-    </style>
+  <meta charset="UTF-8">
+  <title>Questionnaire – Quel type d’investisseur crypto êtes-vous ?</title>
+  <style>
+    /* --- RESET & BASE --- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      color: #333;
+      line-height: 1.5;
+    }
+
+    /* --- HEADER & LOGO --- */
+    header {
+      text-align: center;
+      padding: 20px;
+    }
+    .logo {
+      max-width: 250px; /* Ajustez si nécessaire */
+    }
+
+    /* --- CONTAINER --- */
+    .container {
+      max-width: 750px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 20px 30px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      margin-bottom: 40px;
+    }
+    h1 {
+      margin-bottom: 15px;
+      text-align: center;
+    }
+    .intro {
+      font-size: 0.95rem;
+      margin-bottom: 30px;
+      color: #555;
+    }
+
+    /* --- FORM & QUESTIONS --- */
+    fieldset {
+      border: none;
+      margin-bottom: 20px;
+    }
+    legend {
+      font-weight: bold;
+      margin-bottom: 10px;
+      font-size: 1.1rem;
+    }
+    p.question-text {
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+    label {
+      display: block;
+      margin: 5px 0;
+      cursor: pointer;
+      font-weight: normal;
+    }
+    input[type="radio"] {
+      margin-right: 8px;
+    }
+
+    /* --- BOUTON VALIDER --- */
+    .btn-submit {
+      display: block;
+      margin: 30px auto 10px auto;
+      padding: 12px 24px;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: #333;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+    }
+    .btn-submit:hover {
+      background-color: #555;
+    }
+
+    /* --- MODAL / POP-UP --- */
+    .modal-overlay {
+      position: fixed;
+      top: 0; 
+      left: 0; 
+      width: 100%; 
+      height: 100%; 
+      background-color: rgba(0,0,0,0.5); 
+      display: none; 
+      align-items: center; 
+      justify-content: center; 
+      z-index: 9999; /* Au-dessus de tout le reste */
+    }
+    .modal {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 6px;
+      max-width: 550px;
+      width: 90%;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+    .modal h2 {
+      margin-top: 0;
+      margin-bottom: 15px;
+      font-size: 1.3rem;
+    }
+    .close-btn {
+      margin-top: 20px;
+      background-color: #333;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      border-radius: 4px;
+      font-size: 0.95rem;
+    }
+    .close-btn:hover {
+      background-color: #555;
+    }
+
+    /* --- FOOTER (optionnel) --- */
+    footer {
+      text-align: center;
+      font-size: 0.8rem;
+      color: #777;
+      margin-bottom: 20px;
+    }
+  </style>
 </head>
 <body>
+  <!-- LOGO -->
+  <header>
+    <!-- Remplacez "logo.png" par l’URL ou le chemin réel de votre logo -->
+    <img src="logo.png" alt="TWAËL Crypto & Consulting" class="logo">
+  </header>
 
-<div class="quiz-container">
-    <h1>Quel est votre profil d'investisseur dans les crypto-monnaies ?</h1>
-    <form id="quizForm">
-        <!-- Question 1 à 20 -->
-        <div class="question">
-            <p>1. Lorsque vous pensez aux investissements, quelle phrase vous semble la plus vraie ?</p>
-            <div class="answers">
-                <label><input type="radio" name="q1" value="1"> A. La sécurité du capital est prioritaire.</label>
-                <label><input type="radio" name="q1" value="2"> B. Je veux une croissance stable avec un minimum de risque.</label>
-                <label><input type="radio" name="q1" value="3"> C. Je suis prêt à prendre des risques mesurés pour maximiser mes rendements.</label>
-                <label><input type="radio" name="q1" value="4"> D. J’aime le risque si les rendements peuvent être significatifs.</label>
-            </div>
-        </div>
+  <div class="container">
+    <h1>Quel type d’Investisseur crypto êtes-vous ?</h1>
+    <div class="intro">
+      <p>
+        Ce questionnaire est conçu pour vous aider à identifier votre profil d’investisseur 
+        crypto. Il prend en compte votre approche de l’investissement, votre tolérance au 
+        risque, vos objectifs financiers et votre capacité à gérer les fluctuations du marché.
+      </p>
+      <p>
+        À la fin du test, vous saurez si vous êtes un investisseur :<br>
+        1) Conservateur ("bon père de famille")<br>
+        2) Équilibré<br>
+        3) Dynamique<br>
+        4) Spéculatif ("Degen")
+      </p>
+      <p>
+        <strong>Instructions :</strong> Répondez honnêtement à ces 15 questions en cochant 
+        la lettre correspondant à votre réponse. À la fin, le système déterminera 
+        automatiquement votre profil.
+      </p>
+    </div>
 
-        <div class="question">
-            <p>2. À quelle fréquence consultez-vous vos investissements ?</p>
-            <div class="answers">
-                <label><input type="radio" name="q2" value="1"> A. Rarement, peut-être une fois par mois.</label>
-                <label><input type="radio" name="q2" value="2"> B. Toutes les deux semaines pour vérifier la progression.</label>
-                <label><input type="radio" name="q2" value="3"> C. Une fois par semaine, j’aime suivre les mouvements.</label>
-                <label><input type="radio" name="q2" value="4"> D. Quotidiennement, parfois plusieurs fois par jour.</label>
-            </div>
-        </div>
+    <form id="investorForm">
+      <!-- 1) Compréhension des marchés financiers -->
+      <fieldset>
+        <legend>Question 1</legend>
+        <p class="question-text">
+          Avez-vous déjà investi en dehors des cryptos (bourse, immobilier, matières premières) ?
+        </p>
+        <label>
+          <input type="radio" name="q1" value="A" required>
+          A) Oui, je suis expérimenté en investissement traditionnel.
+        </label>
+        <label>
+          <input type="radio" name="q1" value="B">
+          B) Oui, j’ai déjà testé quelques investissements en dehors des cryptos.
+        </label>
+        <label>
+          <input type="radio" name="q1" value="C">
+          C) Un peu, mais je me concentre surtout sur les cryptos.
+        </label>
+        <label>
+          <input type="radio" name="q1" value="D">
+          D) Non, la crypto est mon premier investissement.
+        </label>
+      </fieldset>
 
-        <div class="question">
-            <p>3. Que faites-vous si un investissement perd soudainement 20 % en une journée ?</p>
-            <div class="answers">
-                <label><input type="radio" name="q3" value="1"> A. Je pense à vendre pour limiter les pertes.</label>
-                <label><input type="radio" name="q3" value="2"> B. Je m’inquiète mais j’attends de voir.</label>
-                <label><input type="radio" name="q3" value="3"> C. J’envisage d’acheter davantage pour profiter du prix bas.</label>
-                <label><input type="radio" name="q3" value="4"> D. Je double mon investissement pour maximiser un rebond éventuel.</label>
-            </div>
-        </div>
+      <fieldset>
+        <legend>Question 2</legend>
+        <p class="question-text">
+          Comment percevez-vous l’inflation et la politique monétaire ?
+        </p>
+        <label>
+          <input type="radio" name="q2" value="A" required>
+          A) Je connais bien les mécanismes économiques et leur impact sur les marchés.
+        </label>
+        <label>
+          <input type="radio" name="q2" value="B">
+          B) J’ai des bases, je comprends pourquoi l’inflation influence les actifs.
+        </label>
+        <label>
+          <input type="radio" name="q2" value="C">
+          C) Je m’y intéresse mais sans en suivre l’évolution détaillée.
+        </label>
+        <label>
+          <input type="radio" name="q2" value="D">
+          D) Je ne m’en préoccupe pas, ça n’influence pas mes décisions.
+        </label>
+      </fieldset>
 
-        <div class="question">
-            <p>4. Quelle est votre expérience en matière d’investissement ?</p>
-            <div class="answers">
-                <label><input type="radio" name="q4" value="1"> A. Très peu d’expérience.</label>
-                <label><input type="radio" name="q4" value="2"> B. J’ai quelques placements dans des produits sûrs.</label>
-                <label><input type="radio" name="q4" value="3"> C. Je suis assez expérimenté et connais différents types d’actifs.</label>
-                <label><input type="radio" name="q4" value="4"> D. J’ai une expérience solide, y compris dans les investissements à haut risque.</label>
-            </div>
-        </div>
+      <fieldset>
+        <legend>Question 3</legend>
+        <p class="question-text">
+          Pensez-vous que les crypto-actifs sont une révolution financière ?
+        </p>
+        <label>
+          <input type="radio" name="q3" value="A" required>
+          A) Un complément au système financier traditionnel, mais pas une alternative.
+        </label>
+        <label>
+          <input type="radio" name="q3" value="B">
+          B) Une technologie qui va coexister avec les marchés traditionnels.
+        </label>
+        <label>
+          <input type="radio" name="q3" value="C">
+          C) Une disruption majeure qui remplacera une partie du système existant.
+        </label>
+        <label>
+          <input type="radio" name="q3" value="D">
+          D) L’avenir unique de la finance, les monnaies fiat vont disparaître.
+        </label>
+      </fieldset>
 
-        <div class="question">
-            <p>5. Pour combien de temps envisagez-vous de conserver vos investissements crypto ?</p>
-            <div class="answers">
-                <label><input type="radio" name="q5" value="1"> A. Plus de 3 ans.</label>
-                <label><input type="radio" name="q5" value="2"> B. 1 à 3 ans.</label>
-                <label><input type="radio" name="q5" value="3"> C. Entre 6 mois et 1 an.</label>
-                <label><input type="radio" name="q5" value="4"> D. Quelques semaines ou moins.</label>
-            </div>
-        </div>
+      <fieldset>
+        <legend>Question 4</legend>
+        <p class="question-text">
+          Avez-vous déjà vécu une crise financière ou un marché baissier sur un autre marché que la crypto ?
+        </p>
+        <label>
+          <input type="radio" name="q4" value="A" required>
+          A) Oui, et j’ai appris à gérer mon capital en conséquence.
+        </label>
+        <label>
+          <input type="radio" name="q4" value="B">
+          B) Oui, mais j’étais plus spectateur qu’acteur.
+        </label>
+        <label>
+          <input type="radio" name="q4" value="C">
+          C) Non, mais j’ai lu et étudié ces périodes pour mieux comprendre.
+        </label>
+        <label>
+          <input type="radio" name="q4" value="D">
+          D) Non, je ne me base que sur le marché crypto.
+        </label>
+      </fieldset>
 
-        <div class="question">
-            <p>6. Quel serait votre investissement idéal ?</p>
-            <div class="answers">
-                <label><input type="radio" name="q6" value="1"> A. Un placement stable avec un rendement faible mais garanti.</label>
-                <label><input type="radio" name="q6" value="2"> B. Un actif relativement sûr avec un potentiel de croissance à long terme.</label>
-                <label><input type="radio" name="q6" value="3"> C. Un actif avec un potentiel de gain intéressant même s’il est volatile.</label>
-                <label><input type="radio" name="q6" value="4"> D. Un actif qui peut doubler en un mois, même si c’est risqué.</label>
-            </div>
-        </div>
+      <!-- 2) Objectifs et Gestion du Risque -->
+      <fieldset>
+        <legend>Question 5</legend>
+        <p class="question-text">
+          Pourquoi souhaitez-vous investir en crypto ?
+        </p>
+        <label>
+          <input type="radio" name="q5" value="A" required>
+          A) Sécuriser mon capital et me protéger de l’inflation.
+        </label>
+        <label>
+          <input type="radio" name="q5" value="B">
+          B) Obtenir un bon rendement en minimisant les risques.
+        </label>
+        <label>
+          <input type="radio" name="q5" value="C">
+          C) Faire croître mon capital en exploitant les opportunités.
+        </label>
+        <label>
+          <input type="radio" name="q5" value="D">
+          D) Générer des gains explosifs, quitte à tout risquer.
+        </label>
+      </fieldset>
 
-        <div class="question">
-            <p>7. Votre objectif principal en investissant est de…</p>
-            <div class="answers">
-                <label><input type="radio" name="q7" value="1"> A. Protéger mon capital de l’inflation.</label>
-                <label><input type="radio" name="q7" value="2"> B. Diversifier mon épargne de manière équilibrée.</label>
-                <label><input type="radio" name="q7" value="3"> C. Générer des gains significatifs.</label>
-                <label><input type="radio" name="q7" value="4"> D. Maximiser les rendements rapidement.</label>
-            </div>
-        </div>
+      <fieldset>
+        <legend>Question 6</legend>
+        <p class="question-text">
+          Quel est votre horizon d’investissement ?
+        </p>
+        <label>
+          <input type="radio" name="q6" value="A" required>
+          A) Plus de 5 ans, je pense long terme.
+        </label>
+        <label>
+          <input type="radio" name="q6" value="B">
+          B) 3 à 5 ans, je veux une croissance stable.
+        </label>
+        <label>
+          <input type="radio" name="q6" value="C">
+          C) 1 à 3 ans, je vise des cycles haussiers.
+        </label>
+        <label>
+          <input type="radio" name="q6" value="D">
+          D) Moins d’un an, je veux des profits rapides.
+        </label>
+      </fieldset>
 
-        <div class="question">
-            <p>8. Quelle part de votre épargne totale êtes-vous prêt à investir en crypto-monnaies ?</p>
-            <div class="answers">
-                <label><input type="radio" name="q8" value="1"> A. Moins de 10 %.</label>
-                <label><input type="radio" name="q8" value="2"> B. 10 à 20 %.</label>
-                <label><input type="radio" name="q8" value="3"> C. 20 à 50 %.</label>
-                <label><input type="radio" name="q8" value="4"> D. Plus de 50 %.</label>
-            </div>
-        </div>
+      <fieldset>
+        <legend>Question 7</legend>
+        <p class="question-text">
+          Comment réagissez-vous si votre portefeuille chute de 50 % en une semaine ?
+        </p>
+        <label>
+          <input type="radio" name="q7" value="A" required>
+          A) Je panique et envisage de vendre.
+        </label>
+        <label>
+          <input type="radio" name="q7" value="B">
+          B) J’attends et je réévalue ma stratégie.
+        </label>
+        <label>
+          <input type="radio" name="q7" value="C">
+          C) Je vois cela comme une opportunité d’achat.
+        </label>
+        <label>
+          <input type="radio" name="q7" value="D">
+          D) J’achète encore plus en pensant au rebond.
+        </label>
+      </fieldset>
 
-        <div class="question">
-            <p>9. Quand vous entendez parler d’un projet crypto prometteur mais risqué, que faites-vous ?</p>
-            <div class="answers">
-                <label><input type="radio" name="q9" value="1"> A. Je n’investis pas, trop risqué pour moi.</label>
-                <label><input type="radio" name="q9" value="2"> B. Je fais des recherches et je considère l’investissement si ça semble solide.</label>
-                <label><input type="radio" name="q9" value="3"> C. Je prends une petite position pour tester.</label>
-                <label><input type="radio" name="q9" value="4"> D. J’investis sans hésitation pour ne pas rater l’opportunité.</label>
-            </div>
-        </div>
+      <fieldset>
+        <legend>Question 8</legend>
+        <p class="question-text">
+          Combien de temps consacrez-vous au suivi de vos investissements ?
+        </p>
+        <label>
+          <input type="radio" name="q8" value="A" required>
+          A) Moins d’une heure par semaine.
+        </label>
+        <label>
+          <input type="radio" name="q8" value="B">
+          B) 1 à 5 heures, j’aime suivre sans être trop actif.
+        </label>
+        <label>
+          <input type="radio" name="q8" value="C">
+          C) 5 à 15 heures, je fais des analyses régulières.
+        </label>
+        <label>
+          <input type="radio" name="q8" value="D">
+          D) Plus de 15 heures, je suis constamment à l’affût.
+        </label>
+      </fieldset>
 
-        <div class="question">
-            <p>10. Préférez-vous un investissement en croissance lente et stable ou en forte fluctuation ?</p>
-            <div class="answers">
-                <label><input type="radio" name="q10" value="1"> A. Croissance lente et stable.</label>
-                <label><input type="radio" name="q10" value="2"> B. Plutôt stable, mais avec des pics occasionnels.</label>
-                <label><input type="radio" name="q10" value="3"> C. Croissance rapide avec des fluctuations modérées.</label>
-                <label><input type="radio" name="q10" value="4"> D. Forte fluctuation pour des gains rapides.</label>
-            </div>
-        </div>
+      <!-- 3) Répartition et Diversification du Portefeuille -->
+      <fieldset>
+        <legend>Question 9</legend>
+        <p class="question-text">
+          Quelle part de votre capital total allouez-vous aux cryptos ?
+        </p>
+        <label>
+          <input type="radio" name="q9" value="A" required>
+          A) Moins de 10 %, je reste diversifié.
+        </label>
+        <label>
+          <input type="radio" name="q9" value="B">
+          B) 10 % à 30 %, pour un bon équilibre.
+        </label>
+        <label>
+          <input type="radio" name="q9" value="C">
+          C) 30 % à 60 %, car je crois au marché crypto.
+        </label>
+        <label>
+          <input type="radio" name="q9" value="D">
+          D) Plus de 60 %, je veux maximiser mon exposition.
+        </label>
+      </fieldset>
 
-        <div class="question">
-            <p>11. À quelle fréquence pensez-vous acheter ou vendre des crypto-monnaies ?</p>
-            <div class="answers">
-                <label><input type="radio" name="q11" value="1"> A. Rarement, peut-être une fois par an.</label>
-                <label><input type="radio" name="q11" value="2"> B. Occasionnellement, en fonction des conditions de marché.</label>
-                <label><input type="radio" name="q11" value="3"> C. Régulièrement, tous les mois ou tous les trimestres.</label>
-                <label><input type="radio" name="q11" value="4"> D. Fréquemment, dès qu’une opportunité se présente.</label>
-            </div>
-        </div>
+      <fieldset>
+        <legend>Question 10</legend>
+        <p class="question-text">
+          Comment diversifiez-vous votre portefeuille crypto ?
+        </p>
+        <label>
+          <input type="radio" name="q10" value="A" required>
+          A) 80 % BTC/ETH, 20 % stablecoins, pas d’altcoins risqués.
+        </label>
+        <label>
+          <input type="radio" name="q10" value="B">
+          B) 50 % BTC/ETH, 30 % altcoins solides, 20 % stablecoins.
+        </label>
+        <label>
+          <input type="radio" name="q10" value="C">
+          C) 30 % BTC/ETH, 50 % altcoins à croissance rapide, 20 % stablecoins.
+        </label>
+        <label>
+          <input type="radio" name="q10" value="D">
+          D) 10 % BTC/ETH, 40 % altcoins, 50 % projets spéculatifs.
+        </label>
+      </fieldset>
 
-        <div class="question">
-            <p>12. Comment réagiriez-vous si le marché crypto entrait dans une période de baisse prolongée ?</p>
-            <div class="answers">
-                <label><input type="radio" name="q12" value="1"> A. Je me retirerais du marché pour préserver mon capital.</label>
-                <label><input type="radio" name="q12" value="2"> B. J’observerais attentivement et attendrais le bon moment pour investir de nouveau.</label>
-                <label><input type="radio" name="q12" value="3"> C. J’accumulerais progressivement pour faire baisser le coût moyen.</label>
-                <label><input type="radio" name="q12" value="4"> D. J’investirais encore plus pour profiter de la baisse des prix.</label>
-            </div>
-        </div>
+      <fieldset>
+        <legend>Question 11</legend>
+        <p class="question-text">
+          Quelle est votre stratégie principale ?
+        </p>
+        <label>
+          <input type="radio" name="q11" value="A" required>
+          A) DCA (achat progressif et long terme).
+        </label>
+        <label>
+          <input type="radio" name="q11" value="B">
+          B) HODL + quelques ajustements.
+        </label>
+        <label>
+          <input type="radio" name="q11" value="C">
+          C) Swing Trading sur les cycles de marché.
+        </label>
+        <label>
+          <input type="radio" name="q11" value="D">
+          D) Trading actif, IDOs, memecoins, farming.
+        </label>
+      </fieldset>
 
-        <div class="question">
-            <p>13. Dans quel type d’actif avez-vous le plus confiance ?</p>
-            <div class="answers">
-                <label><input type="radio" name="q13" value="1"> A. Stablecoins et crypto-monnaies bien établies comme Bitcoin.</label>
-                <label><input type="radio" name="q13" value="2"> B. Grandes capitalisations et quelques altcoins stables.</label>
-                <label><input type="radio" name="q13" value="3"> C. Altcoins à fort potentiel mais modérément risqués.</label>
-                <label><input type="radio" name="q13" value="4"> D. Projets DeFi, NFT ou nouvelles cryptos à faible capitalisation.</label>
-            </div>
-        </div>
+      <fieldset>
+        <legend>Question 12</legend>
+        <p class="question-text">
+          Avez-vous une stratégie de sécurisation du capital ?
+        </p>
+        <label>
+          <input type="radio" name="q12" value="A" required>
+          A) Oui, je prends des profits et utilise des stablecoins.
+        </label>
+        <label>
+          <input type="radio" name="q12" value="B">
+          B) Oui, mais je garde toujours une part exposée au marché.
+        </label>
+        <label>
+          <input type="radio" name="q12" value="C">
+          C) Parfois, je réinvestis la plupart de mes gains.
+        </label>
+        <label>
+          <input type="radio" name="q12" value="D">
+          D) Non, je reste toujours 100 % exposé.
+        </label>
+      </fieldset>
 
-        <div class="question">
-            <p>14. En cas de gains importants, quelle est votre stratégie ?</p>
-            <div class="answers">
-                <label><input type="radio" name="q14" value="1"> A. Prendre des profits dès que possible pour sécuriser.</label>
-                <label><input type="radio" name="q14" value="2"> B. Prendre une partie des gains et laisser le reste en investissement.</label>
-                <label><input type="radio" name="q14" value="3"> C. Laisser l’investissement grandir tout en surveillant.</label>
-                <label><input type="radio" name="q14" value="4"> D. Réinvestir les gains pour maximiser encore plus.</label>
-            </div>
-        </div>
+      <!-- 4) Psychologie et Réaction aux Tendances -->
+      <fieldset>
+        <legend>Question 13</legend>
+        <p class="question-text">
+          Comment réagissez-vous aux tendances du marché ?
+        </p>
+        <label>
+          <input type="radio" name="q13" value="A" required>
+          A) Je reste sur ma stratégie et j’ignore le bruit du marché.
+        </label>
+        <label>
+          <input type="radio" name="q13" value="B">
+          B) J’adapte mon portefeuille selon les grandes tendances.
+        </label>
+        <label>
+          <input type="radio" name="q13" value="C">
+          C) J’essaie d’anticiper les nouveaux cycles.
+        </label>
+        <label>
+          <input type="radio" name="q13" value="D">
+          D) Je suis les narratives du moment et investis sur ce qui explose.
+        </label>
+      </fieldset>
 
-        <div class="question">
-            <p>15. Quelle est votre vision de l’avenir des crypto-monnaies ?</p>
-            <div class="answers">
-                <label><input type="radio" name="q15" value="1"> A. Une opportunité à tester prudemment.</label>
-                <label><input type="radio" name="q15" value="2"> B. Un moyen de diversification intéressant à long terme.</label>
-                <label><input type="radio" name="q15" value="3"> C. Une révolution technologique avec un fort potentiel de croissance.</label>
-                <label><input type="radio" name="q15" value="4"> D. Une chance unique d’obtenir des rendements rapides.</label>
-            </div>
-        </div>
+      <fieldset>
+        <legend>Question 14</legend>
+        <p class="question-text">
+          Si un ami vous parle d’une crypto inconnue qui a explosé de +500 % en une semaine, que faites-vous ?
+        </p>
+        <label>
+          <input type="radio" name="q14" value="A" required>
+          A) J’ignore l’information, ce genre de pump est risqué.
+        </label>
+        <label>
+          <input type="radio" name="q14" value="B">
+          B) Je me renseigne et analyse si c’est durable.
+        </label>
+        <label>
+          <input type="radio" name="q14" value="C">
+          C) Je prends un petit ticket pour tenter une position.
+        </label>
+        <label>
+          <input type="radio" name="q14" value="D">
+          D) J’achète immédiatement, la FOMO est trop forte !
+        </label>
+      </fieldset>
 
-        <div class="question">
-            <p>16. Quelle part de votre épargne êtes-vous prêt à perdre sans que cela n’impacte vos finances ?</p>
-            <div class="answers">
-                <label><input type="radio" name="q16" value="1"> A. Moins de 5 %.</label>
-                <label><input type="radio" name="q16" value="2"> B. 5 à 10 %.</label>
-                <label><input type="radio" name="q16" value="3"> C. 10 à 20 %.</label>
-                <label><input type="radio" name="q16" value="4"> D. Plus de 20 %.</label>
-            </div>
-        </div>
+      <fieldset>
+        <legend>Question 15</legend>
+        <p class="question-text">
+          Avez-vous déjà ressenti des regrets après avoir vendu un actif trop tôt ou trop tard ?
+        </p>
+        <label>
+          <input type="radio" name="q15" value="A" required>
+          A) Non, je suis discipliné avec mes décisions.
+        </label>
+        <label>
+          <input type="radio" name="q15" value="B">
+          B) Parfois, mais j’apprends de mes erreurs.
+        </label>
+        <label>
+          <input type="radio" name="q15" value="C">
+          C) Souvent, j’essaie d’ajuster ma stratégie.
+        </label>
+        <label>
+          <input type="radio" name="q15" value="D">
+          D) Tout le temps, je suis souvent influencé par l’émotion.
+        </label>
+      </fieldset>
 
-        <div class="question">
-            <p>17. Êtes-vous du genre à suivre les tendances du marché ou à rester sur vos positions ?</p>
-            <div class="answers">
-                <label><input type="radio" name="q17" value="1"> A. Je ne suis pas vraiment les tendances, je garde mes positions.</label>
-                <label><input type="radio" name="q17" value="2"> B. Je reste attentif, mais sans investir dans les tendances.</label>
-                <label><input type="radio" name="q17" value="3"> C. Je suis les tendances modérément pour adapter mes choix.</label>
-                <label><input type="radio" name="q17" value="4"> D. Je suis prêt à changer de position dès qu’une tendance apparaît.</label>
-            </div>
-        </div>
-
-        <div class="question">
-            <p>18. Avez-vous un plan de sortie pour vos investissements crypto ?</p>
-            <div class="answers">
-                <label><input type="radio" name="q18" value="1"> A. Oui, j’ai des objectifs précis et je sors dès qu’ils sont atteints.</label>
-                <label><input type="radio" name="q18" value="2"> B. J’ai un plan de sortie flexible mais basé sur des niveaux de prix.</label>
-                <label><input type="radio" name="q18" value="3"> C. Je garde mes actifs tant qu’ils sont rentables.</label>
-                <label><input type="radio" name="q18" value="4"> D. Je n’ai pas de plan de sortie, je m’adapte selon le marché.</label>
-            </div>
-        </div>
-
-        <div class="question">
-            <p>19. Comment vous informez-vous sur les crypto-monnaies ?</p>
-            <div class="answers">
-                <label><input type="radio" name="q19" value="1"> A. Par des sources générales et des conseils prudents.</label>
-                <label><input type="radio" name="q19" value="2"> B. Je consulte des sources spécialisées sans y consacrer trop de temps.</label>
-                <label><input type="radio" name="q19" value="3"> C. J’analyse régulièrement les actualités et tendances crypto.</label>
-                <label><input type="radio" name="q19" value="4"> D. Je suis à l’affût de toutes les opportunités, y compris sur les réseaux sociaux et forums.</label>
-            </div>
-        </div>
-
-        <div class="question">
-            <p>20. Pour conclure, comment évalueriez-vous votre approche vis-à-vis des risques et des opportunités en crypto ?</p>
-            <div class="answers">
-                <label><input type="radio" name="q20" value="1"> A. Très prudente, je préfère éviter les pertes.</label>
-                <label><input type="radio" name="q20" value="2"> B. Raisonnée, j’accepte des risques limités.</label>
-                <label><input type="radio" name="q20" value="3"> C. Modérément audacieuse, je suis ouvert à plus de risques pour des gains.</label>
-                <label><input type="radio" name="q20" value="4"> D. Audacieuse, les opportunités priment sur les risques pour moi.</label>
-            </div>
-        </div>
-
-        <!-- Bouton de soumission -->
-        <button type="button" class="button" onclick="calculateScore()">Voir mon profil</button>
-        <div id="result" class="result"></div>
+      <!-- BOUTON DE VALIDATION -->
+      <button type="button" class="btn-submit" onclick="calculateResult()">
+        Valider mes réponses
+      </button>
     </form>
-</div>
+  </div>
 
-<script>
-    function calculateScore() {
-        const quizForm = document.getElementById('quizForm');
-        let score = 0;
+  <!-- POP-UP (MODAL) POUR AFFICHER LE PROFIL -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal" id="resultModal">
+      <h2>Votre profil d’investisseur</h2>
+      <p id="resultText"></p>
+      <button class="close-btn" onclick="closeModal()">Fermer</button>
+    </div>
+  </div>
 
-        for (let i = 1; i <= 20; i++) {
-            const answer = quizForm['q' + i];
-            if (answer) {
-                const selected = Array.from(answer).find(input => input.checked);
-                if (selected) {
-                    score += parseInt(selected.value);
-                }
-            }
+  <!-- SCRIPT JS -->
+  <script>
+    function calculateResult() {
+      // Comptabilise les occurrences de A, B, C, D
+      const counts = { A: 0, B: 0, C: 0, D: 0 };
+
+      // Boucle sur les 15 questions
+      for (let i = 1; i <= 15; i++) {
+        const radios = document.getElementsByName('q' + i);
+        let selected = null;
+        for (let r of radios) {
+          if (r.checked) {
+            selected = r.value;
+            break;
+          }
         }
-
-        let resultText = "";
-        if (score >= 20 && score <= 30) {
-            resultText = "Conservateur: Vous êtes un investisseur prudent, préférant la sécurité de votre capital et les gains modestes mais stables. Les crypto-monnaies majeures comme Bitcoin ou les stablecoins, ainsi que des stratégies de conservation, seront plus adaptées à votre profil.";
-        } else if (score >= 31 && score <= 50) {
-            resultText = "Équilibré: Vous êtes prêt à prendre certains risques pour augmenter vos rendements, mais vous faites attention à ne pas compromettre trop de capital. Une diversification entre les cryptos majeures et les altcoins vous conviendra, avec une approche progressive dans vos investissements.";
-        } else if (score >= 51 && score <= 70) {
-            resultText = "Dynamique: Vous avez une tolérance au risque moyenne à élevée et cherchez à maximiser vos gains sans crainte de la volatilité. Vous êtes à l'aise avec des investissements dans des altcoins prometteurs et des cycles de marché, prêt à saisir les opportunités de croissance rapide.";
-        } else if (score >= 71 && score <= 80) {
-            resultText = "Spéculatif: Vous aimez l'adrénaline des investissements à fort risque et à fort potentiel de rendement. Vous n’hésitez pas à explorer les tokens à faible capitalisation et les projets DeFi ou NFT. La prise de risque est une source de motivation pour vous, et vous êtes prêt à des fluctuations importantes pour obtenir des gains rapides.";
-        } else {
-            resultText = "Veuillez répondre à toutes les questions.";
+        // Vérifie si toutes les questions sont répondues
+        if (!selected) {
+          alert("Merci de répondre à toutes les questions avant de valider.");
+          return;
         }
+        counts[selected]++;
+      }
 
-        document.getElementById('result').innerText = resultText;
+      // Détermine la lettre la plus fréquente
+      let maxLetter = "A";
+      let maxCount = counts.A;
+      for (let letter in counts) {
+        if (counts[letter] > maxCount) {
+          maxLetter = letter;
+          maxCount = counts[letter];
+        }
+      }
+
+      // Détermine le profil final selon la majorité
+      let resultMessage = "";
+      switch (maxLetter) {
+        case "A":
+          resultMessage = "Investisseur Conservateur (« bon père de famille ») : vous privilégiez la sécurité, la prudence et la stabilité à long terme.";
+          break;
+        case "B":
+          resultMessage = "Investisseur Équilibré : vous recherchez un compromis entre sécurité et rendement, avec une tolérance au risque modérée.";
+          break;
+        case "C":
+          resultMessage = "Investisseur Dynamique : vous optimisez votre portefeuille en prenant des risques mesurés pour obtenir de meilleures performances.";
+          break;
+        case "D":
+          resultMessage = "Investisseur Spéculatif (Degen) : vous visez des gains explosifs et acceptez une forte volatilité, en misant sur des projets à haut risque.";
+          break;
+      }
+
+      // Affiche le texte dans le pop-up
+      document.getElementById("resultText").textContent = resultMessage;
+      document.getElementById("modalOverlay").style.display = "flex";
     }
-</script>
 
+    function closeModal() {
+      document.getElementById("modalOverlay").style.display = "none";
+    }
+  </script>
+
+  <footer>
+    © 2023 - TWAËL Crypto & Consulting
+  </footer>
 </body>
 </html>
